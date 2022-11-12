@@ -14,6 +14,8 @@ e. Reserved words (like JavaScript keywords) cannot be used as names.
 
 Sumber : https://www.w3schools.com/js/js_variables.asp
 '''
+import globalVariable
+
 
 def variableCheck(word):
     letters_lowercase = 'abcdefghijklmnopqrstuvwxyz'
@@ -23,15 +25,13 @@ def variableCheck(word):
     begin = letters_lowercase+letters_uppercase+signs
     notbegin = begin+digits
 
-    valid = False
     for i in range(0, len(word)):
         if ((i == 0) and (word[i] in begin)):
             valid = True
-        elif ((i > 0) and word[i] in notbegin):
+        elif ((i > 0) and (word[i] in notbegin)):
             valid = True
         else:
             valid = False
-
     return valid
 
 
@@ -39,17 +39,26 @@ def isVariable(list_word, replacedsymbol, js_grammar):
     list_word_done = []
     declare = False
     for word in list_word:
-        # Using var, let, or const
-        if (declare):
-            if (variableCheck):
-                list_word_done.append('_variable_')
-            declare = False
-        elif (word == 'var' or word == 'let' or word == 'const'):
-            declare = True
-        elif ((word in replacedsymbol) or (word in js_grammar)) :
-            list_word_done.append(word)
-        else :
-            if (variableCheck):
-                list_word_done.append('_variable_')
-    
-    return list_word_done
+        print(word, globalVariable.acc)
+        if (globalVariable.acc):
+            # Using var, let, or const
+            if (declare):
+                if (variableCheck(word)):
+                    list_word_done.append('_variable_')
+                else:
+                    globalVariable.acc = False
+                declare = False
+            elif (word == 'var' or word == 'let' or word == 'const'):
+                declare = True
+            elif ((word in replacedsymbol) or (word in js_grammar)):
+                list_word_done.append(word)
+            else:
+                if (variableCheck(word)):
+                    list_word_done.append('_variable_')
+                else:
+                    globalVariable.acc = False
+
+    if (globalVariable.acc):
+        return list_word_done
+    else:
+        return -1
