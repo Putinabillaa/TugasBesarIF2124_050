@@ -45,6 +45,10 @@ def ReadyToParse(file):
                     line = line.replace(brackets, ' _curlyOpen_')
                 if (brackets == '}'):
                     line = line.replace(brackets, ' _curlyClose_')
+                if (brackets == '['):
+                    line = line.replace(brackets, ' _squareOpen_')
+                if (brackets == ']'):
+                    line = line.replace(brackets, ' _squareClose_')
 
             # Mengubah keyword operator
             for operator in globalVariable.js_compareOp:
