@@ -14,3 +14,38 @@ SUBMISI     : https://forms.gle/fVRxWGW9Km2ozHdq9
 
 REFERENSI : <br>
 Grammar           : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference <br>
+
+Tracking
+
+CFG:
+- [x] break
+- [ ] const 
+- [x] case
+- [x] catch
+- [x] continue
+- [ ] default
+- [ ] delete
+- [x] else
+- [ ] false
+- [x] finally
+- [ ] for
+- [ ] function
+- [x] if
+- [x] let
+- [ ] null
+- [x] return
+- [x] switch
+- [x] throw
+- [x] try
+- [ ] true
+- [ ] var
+- [ ] while
+
+FA:
+- [ ] Variable name
+- [ ] Function name
+- [ ] Expression (operator precedence)
+
+- [ ] CFG TO CNF
+- [ ] CNF TO DICT
+- [ ] CYK (dan segala hal sampai selesai 😀)
