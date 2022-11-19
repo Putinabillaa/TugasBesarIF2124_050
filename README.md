@@ -23,13 +23,13 @@ CFG:
 - [x] case
 - [x] catch
 - [x] continue
-- [ ] default
+- [x] default (apakah maksudnya default parameters??)
 - [ ] delete
 - [x] else
 - [ ] false
 - [x] finally
-- [ ] for
-- [ ] function
+- [x] for
+- [x] function
 - [x] if
 - [x] let
 - [ ] null
@@ -39,10 +39,10 @@ CFG:
 - [x] try
 - [ ] true
 - [ ] var
-- [ ] while
+- [x] while
 
 FA:
-- [ ] Variable name
+- [x] Variable name
 - [ ] Function name
 - [ ] Expression (operator precedence)
 
