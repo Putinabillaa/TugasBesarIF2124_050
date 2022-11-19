@@ -46,7 +46,7 @@ FA:
 - [ ] Function name
 - [ ] Expression (operator precedence)
 
-
+Lain-Lainnyaa:
 - [ ] CFG TO CNF
 - [ ] CNF TO DICT
 - [ ] CYK (dan segala hal sampai selesai 😀)
