@@ -19,7 +19,7 @@ Tracking
 
 CFG:
 - [x] break
-- [ ] const 
+- [x] const 
 - [x] case
 - [x] catch
 - [x] continue
@@ -38,7 +38,7 @@ CFG:
 - [x] throw
 - [x] try
 - [ ] true
-- [ ] var
+- [x] var
 - [x] while
 
 FA:
