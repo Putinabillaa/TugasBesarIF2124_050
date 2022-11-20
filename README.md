@@ -19,17 +19,17 @@ Tracking
 
 CFG:
 - [x] break
-- [ ] const 
+- [x] const 
 - [x] case
 - [x] catch
 - [x] continue
-- [ ] default
+- [x] default (apakah maksudnya default parameters??)
 - [ ] delete
 - [x] else
 - [ ] false
 - [x] finally
-- [ ] for
-- [ ] function
+- [x] for
+- [x] function
 - [x] if
 - [x] let
 - [ ] null
@@ -38,14 +38,15 @@ CFG:
 - [x] throw
 - [x] try
 - [ ] true
-- [ ] var
-- [ ] while
+- [x] var
+- [x] while
 
 FA:
-- [ ] Variable name
+- [x] Variable name
 - [ ] Function name
 - [ ] Expression (operator precedence)
 
+Lain-Lainnyaa:
 - [ ] CFG TO CNF
 - [ ] CNF TO DICT
 - [ ] CYK (dan segala hal sampai selesai 😀)
