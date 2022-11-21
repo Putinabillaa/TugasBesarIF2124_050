@@ -24,7 +24,7 @@ CFG:
 - [x] catch
 - [x] continue
 - [x] default (apakah maksudnya default parameters??)
-- [ ] delete
+- [x] delete
 - [x] else
 - [ ] false
 - [x] finally
