@@ -11,7 +11,7 @@ from itertools import cycle
 
 matofword = [["none", "random"],
              ["nau", "_assign_"],
-             ["naufal", "wadidaw", "random"],
+             ["naufal", "wadidaw", "random", "_variable_"],
              ["_variable_", "_assign_", "_variable_"]]
 
 
@@ -25,13 +25,16 @@ def isOperan(word):
     return word == "_variable_" or word == "_number_"
 
 def isPrefixOp(word):
-    return word == "!" or word == "~"
+    return  word == "~"
 
 def isPremidOp(word):
     return word == "-"
 
 def isPrepostOp(word):
     return word == "++" or word == "--"
+
+def isNotOp(word):
+    return word == "!"
 
 
 def validity(line):
@@ -40,36 +43,36 @@ def validity(line):
     
     for i in range (len(line)):
 
-        if(isOperan(line[i]) and isOperan(line[i+1])): # kalau ada operan dengan elemen selanjutnya operan
-            valid = False
-            break
+        if(isOperan(line[i])): # jika ada operan dengan elemen selanjutnya operator
             
-        #elif(isPrefixOp(line[i])):
+            
+            if(i != len(line)-1):
+                if(isOperator(line[i+1])):
+                    j = i
+                    operan = False
+                    for j in range(i, len(line)):
+                        # print(line[j])
+                        
+                        operan = not operan
+                        if(operan):
+                            # print("cek operan")
+                            if (isOperan(line[j])): # kalau elemen pertama langsung operator maka salah
+                                valid = True
+                            else:
+                                valid = False
+                        else: # disini gaboleh ada operan
+                            if (isOperan(line[j])):
+                                valid = False
+                            elif(isOperator(line[j])): # false biar kalau operator nya adalah elemen terakhir, gaboleh
+                                valid = False
+                            else:
+                                break
+                        # print(valid)
+                    break
+                elif (isOperan(line[i+1])):
+                    valid = False
+                    break
 
-
-        elif(isOperan(line[i]) and isOperator(line[i+1])): # jika ada operan dengan elemen selanjutnya operator
-            j = i
-            operan = False
-
-            for j in range(i, len(line)):
-                # print(line[j])
-                
-                operan = not operan
-                if(operan):
-                    # print("cek operan")
-                    if (isOperan(line[j])): # kalau elemen pertama langsung operator maka salah
-                        valid = True
-                    else:
-                        valid = False
-                else: # disini gaboleh ada operan
-                    if (isOperan(line[j])):
-                        valid = False
-                    elif(isOperator(line[j])): # false biar kalau operator nya adalah elemen terakhir, gaboleh
-                        valid = False
-                    else:
-                        break
-                # print(valid)
-            break
         elif (isOperator(line[i])): #jika ada operator tanpa variable
             valid = False
             break
@@ -86,5 +89,5 @@ def expressionCheck(matofword):
     
     return valid
 
-
+print(len(line))
 print(expressionCheck(matofword))
