@@ -144,7 +144,12 @@ dir = 'test/' + str(fileName)
 file = open(dir, "r")
 file = str(file.read())
 
-print(ReadyToParse(file))
+arrMain = ReadyToParse(file)
+
+# Cek Expression
+
+
+
 # Mulai proses parsing
 '''
 if (globalVariable.acc):
