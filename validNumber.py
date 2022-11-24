@@ -8,12 +8,21 @@ def numberCheck(word):
         if (len(word) > 1):
             valid = False
     else:
+        found = False
         for i in range(1, len(word)):
-            if (word[i] in notbegin):
-                valid = True
-            else:
-                valid = False
-
+            if (valid):
+                if (word[i] == '.'):
+                    if (found):
+                        valid = False
+                    else:
+                        found = True
+                        i += 1
+                        if (not(word[i] in notbegin)):
+                            valid = False
+                elif (word[i] in notbegin):
+                    valid = True
+                else:
+                    valid = False
     return valid
 
 
@@ -23,7 +32,7 @@ def isNumber(list_word):
     for word in list_word:
         if (word[0] in digits):
             if (numberCheck(word)):
-                list_word_done.append(' _number_')
+                list_word_done.append('_number_')
             else:
                 globalVariable.acc = False
         else:

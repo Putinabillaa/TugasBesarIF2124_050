@@ -2,7 +2,6 @@ import sys
 import globalVariable
 import validVariable
 import validNumber
-import numpy as np
 
 
 def ReadyToParse(file):
@@ -101,31 +100,21 @@ def ReadyToParse(file):
 
             # Mengubah keyword object menjadi '_object_'
             # ''' BELOM NIH '''
-            # Pemrosesan null
 
             # Mengubah isi file menjadi array of array of word
             if (line != ''):
                 line = line.split()
-            print("temp")
-            print(line)
 
             # Mengubah keyword number menjadi '_number_'
             line = validNumber.isNumber(line)
-            print("number")
-            print(line)
 
             # Mengubah kata yang tidak ada dalam keyword menjadi _variable_
-            line = validVariable.isVariable(
-                line, globalVariable.replacedsymbol, globalVariable.js_grammar)
-
-            print("line")
-            print(line)
+            if (globalVariable.acc):
+                line = validVariable.isVariable(
+                    line, globalVariable.replacedsymbol, globalVariable.js_grammar)
 
             arr.append(line)
             globalVariable.rowError += 1
-    print("dalam")
-    print(arr)
-    print()
     return arr
 
 
@@ -137,10 +126,23 @@ file = open(dir, "r")
 file = str(file.read())
 
 print(ReadyToParse(file))
-arr_file = file.split('\n')
-
 # Mulai proses parsing
-# if (globalVariable.acc)
+'''
+if (globalVariable.acc):
+    arr_file = ReadyToParse(file)
+    arr_file_ready = []
+    for i in range(0, len(arr_file)):
+        arr_file_ready += arr_file[i] + ['_newline_']
+    globalVariable.acc, arr_file_parsed = CYK(
+        CNFconverter("grammar.txt"), arr_file_ready)
+    globalVariable.rowError = 0
+    if (not(globalVariable.acc)):
+        for word in arr_file_parsed:
+            if (word == '_flag_'):
+                break
+            elif (word == '_newline_'):
+                globalVariable.rowError += 1
+'''
 
 # Output program
 if (globalVariable.acc):

@@ -10,7 +10,7 @@ function do_something(x) {
       return 0;
     } else if (x + 4 == 1) {
       if (true) {
-        return 3;
+        return 3.5;
       } else {
         y = "aku"
         return 2;

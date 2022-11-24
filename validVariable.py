@@ -38,8 +38,6 @@ def variableCheck(word):
 def isVariable(list_word, replacedsymbol, js_grammar):
     list_word_done = []
     declare = False
-    print("isVar")
-    print(list_word)
     for word in list_word:
         if (globalVariable.acc):
             # Using var, let, or const
