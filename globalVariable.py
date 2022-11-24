@@ -10,12 +10,15 @@ js_grammar = ('break', 'const', 'case', 'catch', 'continue', 'default', 'delete'
               'for', 'function', 'if', 'let', 'null', 'return', 'switch', 'throw', 'try', 'true', 'var', 'while')
 js_compareOp = ('==', '===', '!=', '!==', '>', '<', '>=', '<=', '?')
 js_assignLogicOp = ('&&=', '||=', '??=')
-js_logicOp = ('&&', '||', '!')
+js_logicOp = ('&&', '||') # pindahin ! ke prefix
 js_assignBitwiseOp = ('<<=', '>>=', '>>>=', '&=', '^=', '|=')
-js_bitwiseOp = ('&', '|', '~', '^', '<<', '>>', '>>>')
+js_bitwiseOp = ('&', '|', '~', '^', '<<', '>>', '>>>') # pindahin ~ ke prefix
 js_assignArithOp = ('=', '+=', '-=', '*=', '/=', '%=', '**=')
-js_arithOp = ('+', '-', '*', '**', '/', '%', '++', '--')
+js_arithOp = ('+', '*', '**', '/', '%') # pindahin - ke premidfix, ++ -- ke prepost
 js_symbol = (';', ',', ':', '.')
 js_brackets = ('(', ')', '{', '}', '[', ']')
+js_prefixOp = ('!', '~') # op yang letaknya harus di depan
+js_premidfixOp = ('-') # op yang letaknya bisa di depan / tengah
+js_prepostfixOp = ('++', '--') # op yang letaknya bisa di depan / belakang
 replacedsymbol = ('_comment_', '_arith_', '_assign_', '_compare_', '_logic_', '_bitwise_',
                   '_commonOpen_', '_commonClose_', '_curlyOpen_', '_curlyClose_', '_number_', '_variable_')
