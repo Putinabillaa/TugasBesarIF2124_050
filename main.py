@@ -3,6 +3,8 @@ import globalVariable
 import validVariable
 import validNumber
 import expressionCheck
+import CYK
+import CNFconverter
 
 
 def ReadyToParse(file):
@@ -161,9 +163,10 @@ if (globalVariable.acc):
         arr_file_ready += arr_file[i] + ['_newline_']
 
     print(arr_file_ready)
+
+    globalVariable.acc = CYK.CYK(
+        "grammar.txt", arr_file_ready)
     '''
-    globalVariable.acc, arr_file_parsed = CYK(
-        CNFconverter("grammar.txt"), arr_file_ready)
     globalVariable.rowError = 0
     if (not(globalVariable.acc)):
         for word in arr_file_parsed:
