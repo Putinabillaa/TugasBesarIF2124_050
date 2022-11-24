@@ -97,7 +97,7 @@ fileName = sys.argv[1]
 dir = 'test/' + str(fileName)
 file = open(dir, "r")
 file = str(file.read())
-
+print(ReadyToParse(file))
 arr_file = file.split('\n')
 
 # Mulai proses parsing
