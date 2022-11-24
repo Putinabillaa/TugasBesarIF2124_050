@@ -25,7 +25,6 @@ def ReadyToParse(file):
         if (globalVariable.acc):
             # Mengubah semicolon menjadi _semicolon
             line = line.replace(';', ' _semicolon_')
-
             # Mengubah multiline comments menjadi _comment_
             idxMultiOpen = line.find('/*')
             if (idxMultiOpen != -1 or found):
@@ -80,6 +79,8 @@ def ReadyToParse(file):
                 line = line.replace(operator, ' _assign_')
             for operator in globalVariable.js_arithOp:
                 line = line.replace(operator, ' _arith_')
+            for operator in globalVariable.js_assignDeclare :
+                line = line.replace(operator, ' _equalSign_')
 
             # Mengubah tipe data
             # Mengubah keyword number menjadi '_string_'
@@ -171,7 +172,6 @@ if (globalVariable.acc):
         arrMain)
 
 # Mulai proses parsing
-'''
 if (globalVariable.acc):
     arr_file = ReadyToParse(file)
     arr_file_ready = []
@@ -181,8 +181,9 @@ if (globalVariable.acc):
     print(arr_file_ready)
 
     globalVariable.acc = CYK.CYK(
-        "grammar.txt", arr_file_ready)
-    
+        CNFconverter.CNFconverter("CFGDescription.txt"), arr_file_ready)
+    CNFconverter.writeCNF(CNFconverter.CNFconverter("CFGDescription.txt"))
+    '''
     globalVariable.rowError = 0
     if (not(globalVariable.acc)):
         for word in arr_file_parsed:
@@ -191,13 +192,14 @@ if (globalVariable.acc):
             elif (word == '_newline_'):
                 globalVariable.rowError += 1
     '''
-
 # Output program
 if (globalVariable.acc):
     print("\033[1;92mAccepted\n\033[1;00m")
+'''
 else:
     error = arr_line[globalVariable.rowError-1]
     print("\033[1;91mSyntax Error!!")
     print("Terjadi kesalahan pada line " +
           str(globalVariable.rowError) + ' :"' + error + '"')
     print("\033[1;00m")
+'''

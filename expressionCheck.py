@@ -177,7 +177,7 @@ def elimExpression(start, line):
     for i in range(len(line)-1):  # cek kalo ada assignment
         if(line[i] == '_variable_'):
             if(i != len(line)-1):
-                if(line[i+1] == "_assign_"):
+                if(line[i+1] == "_assign_" or '_equalSign_'):
                     assign = True
                     break
 

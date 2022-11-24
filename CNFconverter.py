@@ -1,15 +1,12 @@
 import copy
+import json
 import string
-
 
 def isNonTerminal(sym):
     for char in sym:
         if char not in (string.ascii_uppercase):
             return False
     return True
-
-def isTerminal(sym):
-    return not isNonTerminal(sym)
 
 def readProdRule(CFGFile):
     CFG = {}
@@ -22,11 +19,12 @@ def readProdRule(CFGFile):
                 lines.append(separate)
         for line in lines:
             lhs = line[0].replace(" ", "")
-            splitprods = [line[1].split(" ")]
+            splitprods = [production.split() for production in line[1].split('|')]
             rhs = []
             for splitprod in splitprods:
                 rhs.append(
                         [" " if word == "__space__"  
+                        else "|" if word == "__or_sym__" 
                         else "\n" if word == "__new_line__" 
                         else word
                         for word in splitprod 
@@ -61,9 +59,9 @@ def singleProd(CFG):
         idx = 1
         for i in range(len(products)):
             while (len(products[i]) > 2):
-                rules.update({f"{lhs}_NONTERM_{idx}": [[products[i][0], products[i][1]]]})
+                rules.update({f"{lhs}{idx}": [[products[i][0], products[i][1]]]})
                 products[i] = products[i][1:]
-                products[i][0] = f"{lhs}_NONTERM_{idx}"
+                products[i][0] = f"{lhs}{idx}"
                 idx += 1
     CFG.update(rules)
     return CFG   
@@ -71,5 +69,8 @@ def singleProd(CFG):
 def CNFconverter(dir):
     return singleProd(simplify(readProdRule(dir)))
 
-print(CNFconverter('testcnfconverter.txt'))  
+def writeCNF(CNF):
+    f = open("CNF.txt", "w")
+    f.write(json.dumps(CNF))
+    f.close()
 
