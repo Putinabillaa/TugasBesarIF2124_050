@@ -1,6 +1,7 @@
 import sys
 import globalVariable
 import validVariable
+import validNumber
 
 
 def ReadyToParse(file):
@@ -11,6 +12,9 @@ def ReadyToParse(file):
     found = False
     for line in file:
         if (globalVariable.acc):
+            # Mengubah semicolon menjadi _semicolon
+            line = line.replace(';', ' _semicolon_')
+
             # Mengubah multiline comments menjadi _comment_
             idxMultiOpen = line.find('/*')
             if (idxMultiOpen != -1 or found):
@@ -28,7 +32,7 @@ def ReadyToParse(file):
                 else:
                     globalVariable.acc = False
 
-            # Mengubah singleline comments menjadi _next_
+            # Mengubah singleline comments menjadi _comment_
             if (globalVariable.acc):
                 idxSingle = line.find('//')
                 if (idxSingle != -1):
@@ -67,41 +71,97 @@ def ReadyToParse(file):
                 line = line.replace(operator, ' _arith_')
 
             # Mengubah tipe data
-            # Mengubah keyword number menjadi '_number_'
-            # ''' BELOM NIH '''
             # Mengubah keyword number menjadi '_string_'
-            # ''' BELOM NIH '''
-            # Mengubah keyword boolean menjadi '_boolean_'
-            # ''' BELOM NIH '''
+            idxStringOpen = line.find("'")
+            if (idxStringOpen != -1):
+                idxStringClose = line.find("'", idxStringOpen+1)
+                if (idxStringClose == -1):
+                    globalVariable.acc = False
+                else:
+                    line = line.replace(
+                        line[idxStringOpen:idxStringClose+1], ' _string_')
+            else:  # idxstringOpen == -1
+                idxStringClose = line.find("'")
+                if (idxStringClose != -1):
+                    globalVariable.acc = False
+
+            idxStringOpen = line.find('"')
+            if (idxStringOpen != -1):
+                idxStringClose = line.find('"', idxStringOpen+1)
+                if (idxStringClose == -1):
+                    globalVariable.acc = False
+                else:
+                    line = line.replace(
+                        line[idxStringOpen:idxStringClose+1], ' _string_')
+            else:  # idxstringOpen == -1
+                idxStringClose = line.find('"')
+                if (idxStringClose != -1):
+                    globalVariable.acc = False
+
             # Mengubah keyword object menjadi '_object_'
             # ''' BELOM NIH '''
-            # Pemrosesan null
 
             # Mengubah isi file menjadi array of array of word
             if (line != ''):
                 line = line.split()
 
+            # Mengubah keyword number menjadi '_number_'
+            line = validNumber.isNumber(line)
+
             # Mengubah kata yang tidak ada dalam keyword menjadi _variable_
-            line = validVariable.isVariable(
-                line, globalVariable.replacedsymbol, globalVariable.js_grammar)
+            if (globalVariable.acc):
+                line = validVariable.isVariable(
+                    line, globalVariable.replacedsymbol, globalVariable.js_grammar)
 
             arr.append(line)
             globalVariable.rowError += 1
-
     return arr
 
 
 # PROGRAM UTAMA
+# Splash screen
+print()
+print()
+print("      ██╗ █████╗ ██╗   ██╗ █████╗ ███████╗ ██████╗██████╗ ██╗██████╗ ████████╗  ")
+print("      ██║██╔══██╗██║   ██║██╔══██╗██╔════╝██╔════╝██╔══██╗██║██╔══██╗╚══██╔══╝  ")
+print("      ██║███████║██║   ██║███████║███████╗██║     ██████╔╝██║██████╔╝   ██║     ")
+print(" ██   ██║██╔══██║╚██╗ ██╔╝██╔══██║╚════██║██║     ██╔══██╗██║██╔═══╝    ██║     ")
+print(" ╚█████╔╝██║  ██║ ╚████╔╝ ██║  ██║███████║╚██████╗██║  ██║██║██║        ██║     ")
+print("  ╚════╝ ╚═╝  ╚═╝  ╚═══╝  ╚═╝  ╚═╝╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝╚═╝        ╚═╝     ")
+print()
+print("                              ██████╗  █████╗ ██████╗ ███████╗███████╗██████╗   ")
+print("                              ██╔══██╗██╔══██╗██╔══██╗██╔════╝██╔════╝██╔══██╗  ")
+print("                              ██████╔╝███████║██████╔╝███████╗█████╗  ██████╔╝  ")
+print("                              ██╔═══╝ ██╔══██║██╔══██╗╚════██║██╔══╝  ██╔══██╗  ")
+print("                              ██║     ██║  ██║██║  ██║███████║███████╗██║  ██║  ")
+print("                              ╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚══════╝╚═╝  ╚═╝  ")
+print()
+print()
+
 # Membuka file Node.js
 fileName = sys.argv[1]
 dir = 'test/' + str(fileName)
 file = open(dir, "r")
 file = str(file.read())
-print(ReadyToParse(file))
-arr_file = file.split('\n')
 
+print(ReadyToParse(file))
 # Mulai proses parsing
-# if (globalVariable.acc)
+'''
+if (globalVariable.acc):
+    arr_file = ReadyToParse(file)
+    arr_file_ready = []
+    for i in range(0, len(arr_file)):
+        arr_file_ready += arr_file[i] + ['_newline_']
+    globalVariable.acc, arr_file_parsed = CYK(
+        CNFconverter("grammar.txt"), arr_file_ready)
+    globalVariable.rowError = 0
+    if (not(globalVariable.acc)):
+        for word in arr_file_parsed:
+            if (word == '_flag_'):
+                break
+            elif (word == '_newline_'):
+                globalVariable.rowError += 1
+'''
 
 # Output program
 if (globalVariable.acc):

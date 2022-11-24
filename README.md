@@ -3,7 +3,8 @@
 
 GITHUB      : https://github.com/Putinabillaa/TugasBesarIF2124_050.git
 <br>
-LAPORAN     : 
+LAPORAN     : https://docs.google.com/document/d/1HhXz45MD3ONAw3p7mACvJmtcekjKlBM2rQ5wuz785mI/edit?usp=sharing
+<br>
 
 SPESIFIKASI : https://docs.google.com/document/d/1JodthYhXxtxvxZXdkrC29XP6AzYEQSi7ll9z_fTseA0/edit?usp=sharing
 <br>
@@ -43,7 +44,7 @@ CFG:
 
 FA:
 - [x] Variable name
-- [ ] Function name
+- [x] Function name
 - [ ] Expression (operator precedence)
 
 Lain-Lainnyaa:
