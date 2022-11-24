@@ -25,16 +25,16 @@ def isOperan(word):
     return word == "_variable_" or word == "_number_"
 
 def isPrefixOp(word):
-    return  word == "~"
+    return  word == "_prefixOp_'"
 
 def isPremidOp(word):
-    return word == "-"
+    return word == "_premidOp_"
 
 def isPrepostOp(word):
-    return word == "++" or word == "--"
+    return word == "_prepostOp_"
 
 def isNotOp(word):
-    return word == "!"
+    return word == "_notOp_'"
 
 
 def validity(line):
