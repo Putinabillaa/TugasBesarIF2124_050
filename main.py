@@ -163,7 +163,6 @@ print('Checking "' + fileName, '" ', end='')
 time.sleep(0.75)
 slowprint("...")
 print("\033[00m")
-time.sleep(0.75)
 
 arrMain = ReadyToParse(file)
 # Cek Expression
