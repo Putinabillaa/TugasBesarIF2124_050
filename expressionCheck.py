@@ -69,6 +69,7 @@ def validity(line):
     valid = True
     found = False
     j = 0
+    i = 0
     
     for i in range (len(line)):
 
