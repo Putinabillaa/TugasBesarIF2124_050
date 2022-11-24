@@ -1,6 +1,6 @@
 import sys
-import validVariable
 import globalVariable
+import validVariable
 
 
 def ReadyToParse(file):
