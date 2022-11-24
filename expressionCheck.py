@@ -20,10 +20,6 @@ matofword = [["none", "random", "halo"], # kontrol
              ["_notOp_", "_variable_"]] # true
 
 
-
-
-
-
 def isOperator(word):
     return word == "_arith_" or word == "_compare_" or word == "_logic_" or word == "_bitwise_" or word == "_premidOp_"
 
@@ -193,19 +189,25 @@ def elimExpression(start, line):
     
         
 
-def expressionCheck(matofword, mainRunning):
+def expressionCheck(matofword):
 
     valid = True
+    lineEr = 1
 
     for line in matofword:
         validtemp, idAwal, idAKhir, found = validity(line)
         valid = valid and validtemp
         print(validtemp, idAwal, idAKhir, found)
+        if(valid):
+            lineEr += 1
+
         if(found):
             elimExpression(idAwal, line)
 
         print(line)
+        print(valid)
+        print(lineEr)
 
-    mainRunning = valid
+    return matofword, valid, lineError
 
-expressionCheck(matofword, True)
+
