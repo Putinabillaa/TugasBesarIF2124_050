@@ -5,6 +5,14 @@ import validNumber
 import expressionCheck
 import CYK
 import CNFconverter
+import time
+
+
+def slowprint(s):
+    for c in s + '\n':
+        sys.stdout.write(c)
+        sys.stdout.flush()
+        time.sleep(0.75)
 
 
 def ReadyToParse(file):
@@ -147,15 +155,23 @@ dir = 'test/' + str(fileName)
 file = open(dir, "r")
 file = str(file.read())
 
-arrMain = ReadyToParse(file)
+arr_line = file.split('\n')
 
-print("Cek ekspresi\n")
+print("\033[93m")
+print('Checking "' + fileName, '" ', end='')
+time.sleep(0.75)
+slowprint("...")
+print("\033[00m")
+time.sleep(0.75)
+
+arrMain = ReadyToParse(file)
 # Cek Expression
 if (globalVariable.acc):
     arr_file, globalVariable.acc, globalVariable.rowError = expressionCheck.expressionCheck(
         arrMain)
 
 # Mulai proses parsing
+'''
 if (globalVariable.acc):
     arr_file = ReadyToParse(file)
     arr_file_ready = []
@@ -166,7 +182,7 @@ if (globalVariable.acc):
 
     globalVariable.acc = CYK.CYK(
         "grammar.txt", arr_file_ready)
-    '''
+    
     globalVariable.rowError = 0
     if (not(globalVariable.acc)):
         for word in arr_file_parsed:
@@ -178,10 +194,10 @@ if (globalVariable.acc):
 
 # Output program
 if (globalVariable.acc):
-    print("Accepted")
+    print("\033[1;92mAccepted\n\033[1;00m")
 else:
-    error = arr_file[globalVariable.rowError-1]
-    error = error.replace(' ', '')
-    print("Syntax Error")
-    print("Terjadi kesalahan pada line " + str(globalVariable.rowError) +
-          ' :"' + error + '"')
+    error = arr_line[globalVariable.rowError-1]
+    print("\033[1;91mSyntax Error!!")
+    print("Terjadi kesalahan pada line " +
+          str(globalVariable.rowError) + ' :"' + error + '"')
+    print("\033[1;00m")
