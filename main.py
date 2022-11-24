@@ -2,6 +2,7 @@ import sys
 import globalVariable
 import validVariable
 import validNumber
+import expressionCheck
 
 
 def ReadyToParse(file):
@@ -146,17 +147,21 @@ file = str(file.read())
 
 arrMain = ReadyToParse(file)
 
+print("Cek ekspresi\n")
 # Cek Expression
-
-
+if (globalVariable.acc):
+    arr_file, globalVariable.acc, globalVariable.rowError = expressionCheck.expressionCheck(
+        arrMain)
 
 # Mulai proses parsing
-'''
 if (globalVariable.acc):
     arr_file = ReadyToParse(file)
     arr_file_ready = []
     for i in range(0, len(arr_file)):
         arr_file_ready += arr_file[i] + ['_newline_']
+
+    print(arr_file_ready)
+    '''
     globalVariable.acc, arr_file_parsed = CYK(
         CNFconverter("grammar.txt"), arr_file_ready)
     globalVariable.rowError = 0
@@ -166,7 +171,7 @@ if (globalVariable.acc):
                 break
             elif (word == '_newline_'):
                 globalVariable.rowError += 1
-'''
+    '''
 
 # Output program
 if (globalVariable.acc):

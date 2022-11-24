@@ -197,16 +197,11 @@ def expressionCheck(matofword):
     for line in matofword:
         validtemp, idAwal, idAKhir, found = validity(line)
         valid = valid and validtemp
-        print(validtemp, idAwal, idAKhir, found)
         if(valid):
             lineError += 1
 
         if(found):
             elimExpression(idAwal, line)
-
-        print(line)
-        print(valid)
-        print(lineError)
 
     return matofword, valid, lineError
 
