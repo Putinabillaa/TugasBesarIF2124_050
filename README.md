@@ -3,7 +3,7 @@ Tugas Besar IF2124 Teori Bahasa Formal dan Otomata
 
 ## Daftar Isi
 * [Penjelasan Ringkas Program](#penjelasan-ringkas-program)
-* [Cara Kompilasi Program](#cara-kompilasi-program)
+* [Pre-Requisite Program](#pre-requisite-program)
 * [Cara Menjalankan Program](#cara-menjalankan-program)
 * [Pembagian Tugas](#pembagian-tugas)
 * [Daftar Fitur](#daftar-fitur)
@@ -14,17 +14,15 @@ Tugas Besar IF2124 Teori Bahasa Formal dan Otomata
 
 
 ## Penjelasan Ringkas Program
-BNMO
+Menurut Kamus Besar Bahasa Indonesia, parser adalah alat untuk mendeteksi kesalahan sintaksis pada program komputer. Parsing dilakukan dengan mengambil input dalam bentuk instruksi program atau urutan token untuk kemudian dipisahkan menjadi komponen-komponen yang lebih mudah untuk diproses atau dianalisis secara sintaksis. Proses parsing dilakukan untuk mengetahui apakah kode program tersebut ditulis sesuai dengan tata bahasanya, sebelum dijalankan oleh compiler. Parsing digunakan dalam semua bahasa pemrograman tingkat tinggi, salah satunya JavaScript. Program JavaScript Parser ini mengimplementasikan proses parsing file program JavaScript(.js) dengan menerapkan konsep Finite Automata dan Context-Free Grammar. Program ini berbasis CLI (Command Line Interface) dan ditulis dalam Bahasa Pemrograman Python.
 
-## Cara Kompilasi
-1. Pastikan pada device sudah terinstall gcc compiler
-2. Pada root directory jalankan command `sh compile.sh`
-3. Jika berhasil dilakukan kompilasi akan muncul file `main.exe` pada root directory
+## Pre-Requisite Program
+1. Pastikan pada device sudah terinstall library sys
 
 ## Cara Menjalankan Program
-1. Pastikan sudah melakukan kompilasi pada program
-2. Pada root directory jalankan command `./main`
-3. Jika berhasil di run, akan muncul splash screen 
+1. Pastikan sudah melakukan kompilasi program
+2. Pada root directory jalankan command `python main.py <nama_file>.js`
+3. Jika berhasil di run, splash screen JAVASCRIPT PARSER muncul
 
 ## Pembagian Tugas
 | PIC                               	| JOBDESC                                                                                                                                                                                                                         	|
@@ -39,14 +37,16 @@ BNMO
 3. Parsing program .js dengan konsep Context-Free Grammar
 
 ## Status Pengerjaan
-* Seluruh fitur selesai dikerjakan. 
+- [x] Validasi Variabel dengan Finite Automata
+- [x] Validasi Ekspresi dengan Finite Automata
+- [x] Parsing program .js dengan konsep Context-Free Grammar
 
 ## Screenshot Program
 ![Javascript Parser Program](./program.png)
 
 ## Struktur Program
 ```bash
-└───TubesAlstrukdat-K1C
+└───TugasBesarIF2124_050
     ├───doc
     │   └───
     ├───test
@@ -74,6 +74,8 @@ BNMO
 
 
 ----------------------------------------------------------------------------------------------------------
+
+
 # TugasBesarIF2124_050
 ## Tugas Besar IF2124 Teori Bahasa Formal dan Otomata Parser Bahasa JavaScript (Node.js)
 
@@ -91,39 +93,3 @@ SUBMISI     : https://forms.gle/fVRxWGW9Km2ozHdq9
 
 REFERENSI : <br>
 Grammar           : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference <br>
-
-Tracking
-
-CFG:
-- [x] break
-- [x] const 
-- [x] case
-- [x] catch
-- [x] continue
-- [x] default (apakah maksudnya default parameters??)
-- [x] delete
-- [x] else
-- [ ] false
-- [x] finally
-- [x] for
-- [x] function
-- [x] if
-- [x] let
-- [ ] null
-- [x] return
-- [x] switch
-- [x] throw
-- [x] try
-- [ ] true
-- [x] var
-- [x] while
-
-FA:
-- [x] Variable name
-- [x] Function name
-- [ ] Expression (operator precedence)
-
-Lain-Lainnyaa:
-- [ ] CFG TO CNF
-- [ ] CNF TO DICT
-- [ ] CYK (dan segala hal sampai selesai 😀)
