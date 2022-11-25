@@ -23,8 +23,8 @@ matofword = [["none", "random", "halo"],  # kontrol
              ["_variable_", "_prepostOp_", "random", "halo"],  # true
              ["_notOp_", "_variable_"]]  # true
 
-line = [["if", "_curlyOpen_", "_variable_", "_compare_", "_number_", "_curlyClose_","_variable_", "_assign_", "_string_"  ],
-        ["none", "random", "_variable_", "_compare_", "true"],
+line = [["if", "_curlyOpen_", "_variable_", "_equalSign_", "_string_", "_curlyClose_" ],
+        ["none", "random", "halo"],
         ["_notOp_", "_variable_"]]
 
 tes = [["if", "_curlyOpen_", "_variable_", "_compare_", "_number_", "_curlyClose_","_variable_", "_assign_", "_string_"  ],
@@ -86,6 +86,7 @@ def validity(line):
     found = False
     j = 0
     i = 0
+    id = []
 
     for i in range(len(line)):
 
@@ -98,12 +99,14 @@ def validity(line):
                     # print(valid)
                     if(valid):
                         found = True
+                        id = id + [i]
                     break
 
                 elif (isOperan(line[i+1])):  # kalau malah ada operan jd salah
                     valid = False
                     if(valid):
                         found = True
+                        id = id + [i]
                     break
 
                 # kalau habis variabel ada prepostOp
@@ -111,6 +114,7 @@ def validity(line):
                     valid = True
                     if(valid):
                         found = True
+                        id = id + [i]
                     break
 
         elif (isPrefixOp(line[i])):  # cek pas ada operan prefix
@@ -124,6 +128,7 @@ def validity(line):
 
             if(valid):
                 found = True
+                id = id + [i]
 
             break
 
@@ -138,6 +143,7 @@ def validity(line):
 
             if(valid):
                 found = True
+                id = id + [i]
 
             break
 
@@ -152,6 +158,7 @@ def validity(line):
 
             if(valid):
                 found = True
+                id = id + [i]
 
             break
 
@@ -166,6 +173,7 @@ def validity(line):
 
             if(valid):
                 found = True
+                id = id + [i]
 
             break
 
@@ -173,36 +181,38 @@ def validity(line):
             valid = False
             break
 
-    return valid, i, j, found
+    return valid, id, found
 
 
 def elimExpression(start, line):
-
-   
     change = ["_arith_", "_compare_", "_logic_", "_bitwise_", "_premidOp_", "_string_",
               "_variable_", "_number_", "_prefixOp_", "_premidOp_", "_prepostOp_", "_notOp_",
-              "true","false", "null" ]
+              "true", "false" ,"null" ]
     assign = False
 
-    line.insert(start, '_expression_')
+    # line.insert(start, '_expression_')
 
-    for change in change:
-        while(line.count(change)):
-            line.remove(change)
+    i = j = 0
 
-            
-    print(line)
-    for i in range(len(line)):  # cek kalo ada assignment
-        print(i)
-        if(line[i] == "_assign_" or line[i] == '_equalSign_'):
-            print(" line yang ditinjau",line[i])
-            assign = True
-            break
+    for i in start:
+        for j in range(i, len(line)-1):
+            for change in change:
+                print(line[j], change)  
+                if(line[j] == change):
+                    print(" poped ",line.pop(j))    
+        
 
-    if(assign):
-        # kalo ada assignment balikin variabel sebelumnya
-        print(i)
-        line.insert(i, "_variable_")
+    # for i in range(len(line)-1):  # cek kalo ada assignment
+    #     # print(line[i])
+    #     # print(i)
+    #     if(line[i] == "_assign_" or line[i] == '_equalSign_'):
+    #         print(" line yang ditinjau",line[i+1], i)
+    #         assign = True
+    #         break
+
+    # if(assign):
+    #     # kalo ada assignment balikin variabel sebelumnya
+    #     line.insert(i, "_variable_")
 
 
 def expressionCheck(matofword):
@@ -211,7 +221,10 @@ def expressionCheck(matofword):
     lineError = 1
 
     for line in matofword:
-        validtemp, idAwal, idAKhir, found = validity(line)
+        validtemp, idAwal, found = validity(line)
+
+        print(validtemp, idAwal, found)
+
         valid = valid and validtemp
         if(valid):
             lineError += 1
@@ -241,7 +254,7 @@ def expressionCheck(matofword):
 # for row in result:
 #     print(*row)
 
-res, valid, lineer = expressionCheck(line)
+res, valid, lineer = expressionCheck(tes)
 
 print(res)
 print(valid)
