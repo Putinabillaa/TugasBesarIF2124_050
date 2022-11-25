@@ -104,6 +104,7 @@ def ReadyToParse(file):
                     idxStringClose = line.find("'", idxStringOpen+1)
                     if (idxStringClose == -1):
                         globalVariable.acc = False
+                        break
                     else:
                         line = line.replace(
                             line[idxStringOpen:idxStringClose+1], ' _string_ ')
@@ -111,6 +112,7 @@ def ReadyToParse(file):
                     idxStringClose = line.find("'")
                     if (idxStringClose != -1):
                         globalVariable.acc = False
+                        break
 
             # print("after1")
             # print(line)
@@ -123,6 +125,7 @@ def ReadyToParse(file):
                     idxStringClose = line.find('"', idxStringOpen + 1)
                     if (idxStringClose == -1):
                         globalVariable.acc = False
+                        break
                     else:
                         line = line.replace(
                             line[idxStringOpen:idxStringClose+1], ' _string_ ')
@@ -130,6 +133,7 @@ def ReadyToParse(file):
                     idxStringClose = line.find('"')
                     if (idxStringClose != -1):
                         globalVariable.acc = False
+                        break
 
             # print("after2")
             # print(line)
@@ -213,14 +217,14 @@ if (globalVariable.acc):
     arr_file_ready = []
     for i in range(0, len(arr_file)):
         arr_file_ready += arr_file[i] + ['_newline_']
-    #print()
-    #print(arr_file_ready)
+    # print()
+    print(arr_file_ready)
 
     # Hapus comment sebelum parsing
-    #print()
+    # print()
     while ('_comment_' in arr_file_ready):
         arr_file_ready.remove('_comment_')
-    #print(arr_file_ready)
+    # print(arr_file_ready)
 
     globalVariable.acc = CYK.CYK(
         CNFconverter.CNFconverter("CFGDescription.txt"), arr_file_ready)
