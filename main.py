@@ -225,11 +225,13 @@ slowprint("...")
 print("\033[00m")
 
 arrMain = ReadyToParse(file)
+print(arrMain)
 arr_file = []
 # Cek Expression
 if (globalVariable.acc):
     arr_file, globalVariable.acc, globalVariable.rowError = expressionCheck.expressionCheck(
         arrMain)
+print(arr_file)
 # DEBUG PRINT MATRIX arr_file
 
 # for row in arr_file:

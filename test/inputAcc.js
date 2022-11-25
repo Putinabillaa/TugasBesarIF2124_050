@@ -4,7 +4,8 @@ function do_something(x) {
     /*
     Halo bang
     */
-    let x = 'Hai'
+    let x = 1 + 2
+    x = '1' + '2'
     y = {x: no}
     for(x,y;y;z){
       true
