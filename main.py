@@ -79,13 +79,21 @@ def ReadyToParse(file):
                 line = line.replace(operator, ' _assign_')
             for operator in globalVariable.js_arithOp:
                 line = line.replace(operator, ' _arith_')
-            for operator in globalVariable.js_assignDeclare :
+            for operator in globalVariable.js_assignDeclare:
                 line = line.replace(operator, ' _equalSign_')
 
             # Mengubah tipe data
             # Mengubah keyword number menjadi '_string_'
             idxStringOpen = line.find("'")
             if (idxStringOpen != -1):
+                # Mengubah escape character
+                line = line.replace(chr(92)+chr(39), 'esc')
+                idxEsc = line.find(chr(92), idxStringOpen+1)
+                while (idxEsc != -1):
+                    idxEscClose = line.find(chr(34), idxEsc+1)
+                    line = line.replace(line[idxEsc:idxEscClose+1], 'esc')
+                    idxEsc = line.find(chr(92), idxStringOpen+1)
+
                 idxStringClose = line.find("'", idxStringOpen+1)
                 if (idxStringClose == -1):
                     globalVariable.acc = False
@@ -99,6 +107,13 @@ def ReadyToParse(file):
 
             idxStringOpen = line.find('"')
             if (idxStringOpen != -1):
+                line = line.replace(chr(92)+chr(34), 'esc')
+                idxEsc = line.find(chr(92), idxStringOpen+1)
+                while (idxEsc != -1):
+                    idxEscClose = line.find(chr(39), idxEsc+1)
+                    line = line.replace(line[idxEsc:idxEscClose+1], 'esc')
+                    idxEsc = line.find(chr(92), idxStringOpen+1)
+
                 idxStringClose = line.find('"', idxStringOpen+1)
                 if (idxStringClose == -1):
                     globalVariable.acc = False
@@ -110,6 +125,7 @@ def ReadyToParse(file):
                 if (idxStringClose != -1):
                     globalVariable.acc = False
 
+            print(line)
             # Mengubah keyword object menjadi '_object_'
             # ''' BELOM NIH '''
 
@@ -151,7 +167,7 @@ print()
 print()
 
 # Membuka file Node.js
-fileName = sys.argv[1] # argumen yang diambil dari cl 
+fileName = sys.argv[1]  # argumen yang diambil dari cl
 dir = 'test/' + str(fileName)
 file = open(dir, "r")
 file = str(file.read())
@@ -170,7 +186,7 @@ arrMain = ReadyToParse(file)
 if (globalVariable.acc):
     arr_file, globalVariable.acc, globalVariable.rowError = expressionCheck.expressionCheck(
         arrMain)
-    
+
 # DEBUG PRINT MATRIX arr_file
 
 # for row in arr_file:

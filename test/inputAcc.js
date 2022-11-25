@@ -4,7 +4,7 @@ function do_something(x) {
     /*
     Halo bang
     */
-    x = 'Hai'
+    let x = 'Hai'
     y = "no"
     if (x == 0) {
       return 0
@@ -12,7 +12,7 @@ function do_something(x) {
       if (true) {
         return 3.5
       } else {
-        y = "aku"
+        y = "ak\ 'u"
         return 2
       }
     } else if (x == 32) {
