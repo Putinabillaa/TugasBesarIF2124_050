@@ -23,6 +23,13 @@ matofword = [["none", "random", "halo"],  # kontrol
              ["_variable_", "_prepostOp_", "random", "halo"],  # true
              ["_notOp_", "_variable_"]]  # true
 
+line = [["if", "_curlyOpen_", "_variable_", "_equalSign_", "_string_", "_curlyClose_" ],
+        ["none", "random", "halo"],
+        ["_notOp_", "_variable_"]]
+
+tes = [["if", "_curlyOpen_", "_variable_", "_compare_", "_number_", "_curlyClose_","_variable_", "_assign_", "_string_"  ],
+       ["_notOp_", "_variable_"] ]
+
 
 def isOperator(word):
     return word == "_arith_" or word == "_compare_" or word == "_logic_" or word == "_bitwise_" or word == "_premidOp_"
@@ -170,26 +177,31 @@ def validity(line):
 
 
 def elimExpression(start, line):
+
+   
     change = ["_arith_", "_compare_", "_logic_", "_bitwise_", "_premidOp_", "_string_",
-              "_variable_", "_number_", "_prefixOp_", "_premidOp_", "_prepostOp_", "_notOp_"]
+              "_variable_", "_number_", "_prefixOp_", "_premidOp_", "_prepostOp_", "_notOp_",
+              "true","false", "null" ]
     assign = False
 
     line.insert(start, '_expression_')
-
-    for i in range(len(line)-1):  # cek kalo ada assignment
-        if(line[i] == '_variable_'):
-            if(i != len(line)-1):
-                if(line[i+1] == "_assign_" or line[i+1] == '_equalSign_'):
-                    print(" line yang ditinjau",line[i+1])
-                    assign = True
-                    break
 
     for change in change:
         while(line.count(change)):
             line.remove(change)
 
+            
+    print(line)
+    for i in range(len(line)):  # cek kalo ada assignment
+        print(i)
+        if(line[i] == "_assign_" or line[i] == '_equalSign_'):
+            print(" line yang ditinjau",line[i])
+            assign = True
+            break
+
     if(assign):
         # kalo ada assignment balikin variabel sebelumnya
+        print(i)
         line.insert(i, "_variable_")
 
 
@@ -228,3 +240,9 @@ def expressionCheck(matofword):
 
 # for row in result:
 #     print(*row)
+
+res, valid, lineer = expressionCheck(tes)
+
+print(res)
+print(valid)
+print(lineer)
