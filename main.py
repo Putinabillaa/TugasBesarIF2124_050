@@ -27,29 +27,34 @@ def ReadyToParse(file):
             line = line.replace(';', ' _semicolon_ ')
             line = line.replace(':', ' _colon_ ')
             line = line.replace(',', ' _comma_ ')
+
             # Mengubah multiline comments menjadi _comment_
             idxMultiOpen = line.find('/*')
-            if (idxMultiOpen != -1 or found):
+            if (idxMultiOpen != -1):
                 found = True
                 idxMultiClose = line.find('*/')
                 if (idxMultiClose == -1):
-                    line = line.replace(line[0:], '_comment_')
+                    line = line.replace(line[idxMultiOpen:], '_comment_')
                 else:
-                    line = line.replace(line[0:], '_comment_')
+                    line = line.replace(
+                        line[IdxMultiOpen:idxMultiClose+2], '_comment_')
                     found = False
-            else:  # idxMultiOpen == -1 and not found
-                idxMultiClose = line.find('*/')
-                if (idxMultiClose == -1):
-                    found = False
-                else:
-                    globalVariable.acc = False
+            else:  # idxMultiOpen == -1
+                if (found):
+                    idxMultiClose = line.find('*/')
+                    if (idxMultiClose == -1):
+                        line = line.replace(line, '_comment_')
+                    else:  # idxMultiClose != -1
+                        line = line.replace(
+                            line[:idxMultiClose+2], '_comment_')
+                        found = False
 
             # Mengubah singleline comments menjadi _comment_
             if (globalVariable.acc):
                 idxSingle = line.find('//')
                 if (idxSingle != -1):
                     line = line.replace(
-                        line[0:], "_comment_")
+                        line[idxSingle:], "_comment_")
 
             # Mengubah bracket
             for brackets in globalVariable.js_brackets:
@@ -85,41 +90,17 @@ def ReadyToParse(file):
                 line = line.replace(operator, ' _equalSign_ ')
 
             # Mengubah tipe data
+            # Mengubah keyword number menjadi '_string_'
+            line = line.replace(chr(92)+chr(39), '0esc')
+            line = line.replace(chr(92)+chr(34), '0esc')
+
             while(line.find("'") != -1):
-                # Mengubah keyword number menjadi '_string_'
                 idxStringOpen = line.find("'")
                 if (idxStringOpen != -1):
                     # print("before1")
                     # print(line)
+
                     # Mengatasi escaped character
-                    if (line.find(chr(92)+chr(39), idxStringOpen+1) != -1):
-                        line = line.replace(chr(92)+chr(39), '0esc')
-
-                    idxStringClose = line.find("'", idxStringOpen+1)
-                    if (idxStringClose == -1):
-                        globalVariable.acc = False
-                    else:
-                        idxEscOpen = line.find(
-                            chr(92), idxStringOpen+1, idxStringClose-1)
-                        while(idxEscOpen != -1):
-                            idxEscClose = line.find(
-                                chr(34), idxEscOpen+1, idxStringClose-1)
-                            if (idxEscClose == -1):
-                                idxEscClose = line.find(
-                                    chr(39), idxEscOpen+1, idxStringClose-1)
-
-                            if(idxEscClose == -1):
-                                line = line.replace(line[idxEscOpen], '0esc')
-                            else:
-                                line = line.replace(
-                                    line[idxEscOpen:idxEscClose+1], '0esc')
-
-                            idxEscOpen = line.find(
-                                chr(92), idxStringOpen+1, idxStringClose-1)
-
-                    # print("after1")
-                    # print(line)
-
                     idxStringClose = line.find("'", idxStringOpen+1)
                     if (idxStringClose == -1):
                         globalVariable.acc = False
@@ -131,41 +112,15 @@ def ReadyToParse(file):
                     if (idxStringClose != -1):
                         globalVariable.acc = False
 
+            # print("after1")
+            # print(line)
+
             while(line.find('"') != -1):
+                # print("before2")
+                # print(line)
                 idxStringOpen = line.find('"')
                 if (idxStringOpen != -1):
-
-                    # print("before2")
-                    # print(line)
-
-                    if (line.find(chr(92)+chr(34), idxStringOpen+1) != -1):
-                        line = line.replace(chr(92)+chr(34), '0esc')
-
-                    idxStringClose = line.find('"', idxStringOpen+1)
-                    if (idxStringClose == -1):
-                        globalVariable.acc = False
-                    else:
-                        idxEscOpen = line.find(
-                            chr(92), idxStringOpen+1, idxStringClose-1)
-                        while(idxEscOpen != -1):
-                            idxEscClose = line.find(
-                                chr(39), idxEscOpen+1, idxStringClose-1)
-                            if (idxEscClose == -1):
-                                idxEscClose = line.find(
-                                    chr(34), idxEscOpen+1, idxStringClose-1)
-                            if(idxEscClose == -1):
-                                line = line.replace(line[idxEscOpen], '0esc')
-                            else:
-                                line = line.replace(
-                                    line[idxEscOpen:idxEscClose+1], '0esc')
-
-                            idxEscOpen = line.find(
-                                chr(92), idxStringOpen+1, idxStringClose-1)
-
-                    # print("after2")
-                    # print(line)
-
-                    idxStringClose = line.find('"', idxStringOpen+1)
+                    idxStringClose = line.find('"', idxStringOpen + 1)
                     if (idxStringClose == -1):
                         globalVariable.acc = False
                     else:
@@ -175,6 +130,9 @@ def ReadyToParse(file):
                     idxStringClose = line.find('"')
                     if (idxStringClose != -1):
                         globalVariable.acc = False
+
+            # print("after2")
+            # print(line)
 
             # Mengubah isi file menjadi array of array of word
             if (line != ''):
@@ -187,6 +145,7 @@ def ReadyToParse(file):
             if (globalVariable.acc):
                 line = validVariable.isVariable(
                     line, globalVariable.replacedsymbol, globalVariable.js_grammar)
+
             arr.append(line)
             globalVariable.rowError += 1
     return arr
@@ -235,7 +194,11 @@ arr_file = []
 if (globalVariable.acc):
     arr_file, globalVariable.acc, globalVariable.rowError = expressionCheck.expressionCheck(
         arrMain)
-print(arr_file)
+
+for i in range(0, len(arr_file)):
+    print(arr_file[i])
+arr_file = []
+
 # DEBUG PRINT MATRIX arr_file
 
 # for row in arr_file:
@@ -254,10 +217,10 @@ if (globalVariable.acc):
 
     # Output program
     if (globalVariable.acc):
-        print("\033[1;92mAccepted\n\033[1;00m")
+        print("\n\033[1;92mAccepted\n\033[1;00m")
 
     else:
-        print("\033[1;91mSyntax Error!!\033[1;00m")
+        print("\n\033[1;91mSyntax Error!!\033[1;00m")
 
 else:
     error = arr_line[globalVariable.rowError-1]

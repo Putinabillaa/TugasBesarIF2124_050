@@ -1,12 +1,11 @@
 // inputAcc.js
 function do_something(x) {
     // This is a sample comment
-    /*
+    x = 5 /*
     Halo bang
-    */
-    let x = 1 + 2
-    x = '1' + '2'
-    y = {x: no}
+    */ y = "Haig\'ais"
+    x = 'Hai\"bang' // Ini contoh esc
+    y = "Haig\'ais"
     for(x,y;y;z){
       true
     }
