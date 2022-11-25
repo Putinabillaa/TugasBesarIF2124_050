@@ -1,9 +1,9 @@
 // inputReject.js
 function do_something(x) {
-    // This is a sample multiline comment
-    if (x == 0) {
+    /* ffgfh
+    else (x == 0) {
       return 0;
-    } else if x + 4 == 1 {
+    } else if x 4 == 1 {
       if (true) {
         return 3;
       } else {
