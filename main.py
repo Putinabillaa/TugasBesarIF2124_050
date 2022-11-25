@@ -37,7 +37,7 @@ def ReadyToParse(file):
                     line = line.replace(line[idxMultiOpen:], '_comment_')
                 else:
                     line = line.replace(
-                        line[IdxMultiOpen:idxMultiClose+2], '_comment_')
+                        line[idxMultiOpen:idxMultiClose+2], '_comment_')
                     found = False
             else:  # idxMultiOpen == -1
                 if (found):
@@ -186,8 +186,10 @@ slowprint("...")
 print("\033[00m")
 
 arrMain = ReadyToParse(file)
+'''
 for i in range(0, len(arrMain)):
     print(arrMain[i])
+'''
 arr_file = []
 
 # Cek Expression
@@ -195,9 +197,10 @@ if (globalVariable.acc):
     arr_file, globalVariable.acc, globalVariable.rowError = expressionCheck.expressionCheck(
         arrMain)
 
+'''
 for i in range(0, len(arr_file)):
     print(arr_file[i])
-
+'''
 # DEBUG PRINT MATRIX arr_file
 
 # for row in arr_file:
@@ -210,14 +213,14 @@ if (globalVariable.acc):
     arr_file_ready = []
     for i in range(0, len(arr_file)):
         arr_file_ready += arr_file[i] + ['_newline_']
-    print()
-    print(arr_file_ready)
+    #print()
+    #print(arr_file_ready)
 
     # Hapus comment sebelum parsing
-    print()
+    #print()
     while ('_comment_' in arr_file_ready):
         arr_file_ready.remove('_comment_')
-    print(arr_file_ready)
+    #print(arr_file_ready)
 
     globalVariable.acc = CYK.CYK(
         CNFconverter.CNFconverter("CFGDescription.txt"), arr_file_ready)

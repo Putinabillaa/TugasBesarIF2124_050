@@ -33,8 +33,8 @@ def readProdRule(CFGFile):
             CFG.update({lhs: rhs})
     return CFG
 
-def simplify(CFG):
-    # simplify redundant symbol
+def elimunitrules(CFG):
+    # eliminate unit rules
     for lhs_sym in CFG:
         listprod = CFG[lhs_sym]
         stop = False
@@ -67,7 +67,7 @@ def singleProd(CFG):
     return CFG   
 
 def CNFconverter(dir):
-    return singleProd(simplify(readProdRule(dir)))
+    return singleProd(elimunitrules(readProdRule(dir)))
 
 def writeCNF(CNF):
     f = open("CNF.txt", "w")
