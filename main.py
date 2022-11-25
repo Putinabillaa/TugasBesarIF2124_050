@@ -218,13 +218,13 @@ if (globalVariable.acc):
     for i in range(0, len(arr_file)):
         arr_file_ready += arr_file[i] + ['_newline_']
     # print()
-    print(arr_file_ready)
+    #print(arr_file_ready)
 
     # Hapus comment sebelum parsing
     # print()
     while ('_comment_' in arr_file_ready):
         arr_file_ready.remove('_comment_')
-    # print(arr_file_ready)
+    #print(arr_file_ready)
 
     globalVariable.acc = CYK.CYK(
         CNFconverter.CNFconverter("CFGDescription.txt"), arr_file_ready)

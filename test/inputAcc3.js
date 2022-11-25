@@ -1,10 +1,12 @@
 const message = "wooho"
 let x = 2
 try {
-    if(x == "") throw "empty"
-    if(true) throw "not a number"
-    if(x < 5) throw "too low"
-    if(x > 10) throw "too high"
+    if(x == "") 
+        y = "empty"
+    else if (x == false){
+        y = "empty"
+    }
+    y = "empty"
 }
 catch(err) {
     x = "Input is " + err

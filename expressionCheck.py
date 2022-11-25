@@ -191,17 +191,17 @@ def elimExpression(start, line):
             line.remove(change)
 
             
-    print(line)
+    #print(line)
     for i in range(len(line)):  # cek kalo ada assignment
-        print(i)
+        #print(i)
         if(line[i] == "_assign_" or line[i] == '_equalSign_'):
-            print(" line yang ditinjau",line[i])
+            #print(" line yang ditinjau",line[i])
             assign = True
             break
 
     if(assign):
         # kalo ada assignment balikin variabel sebelumnya
-        print(i)
+        #print(i)
         line.insert(i, "_variable_")
 
 
@@ -243,6 +243,6 @@ def expressionCheck(matofword):
 
 res, valid, lineer = expressionCheck(line)
 
-print(res)
-print(valid)
-print(lineer)
+#print(res)
+#print(valid)
+#print(lineer)
