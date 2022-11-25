@@ -24,7 +24,7 @@ def ReadyToParse(file):
     for line in file:
         if (globalVariable.acc):
             # Mengubah semicolon menjadi _semicolon
-            line = line.replace(';', ' _semicolon_ ')
+            #line = line.replace(';', ' _semicolon_ ')
             line = line.replace(':', ' _colon_ ')
             line = line.replace(',', ' _comma_ ')
 
@@ -149,7 +149,6 @@ def ReadyToParse(file):
             if (globalVariable.acc):
                 line = validVariable.isVariable(
                     line, globalVariable.replacedsymbol, globalVariable.js_grammar)
-
             arr.append(line)
             globalVariable.rowError += 1
     return arr
@@ -180,7 +179,7 @@ fileName = sys.argv[1]  # argumen yang diambil dari cl
 dir = 'test/' + str(fileName)
 file = open(dir, "r")
 file = str(file.read())
-
+file = file.replace(';', '\n')
 arr_line = file.split('\n')
 
 print("\033[93m")

@@ -7,7 +7,7 @@ function do_something(x) {
     y = "Haig\'ais"
     x = 'Hai\"bang' 
     y = "Haig\'ais" // Ini contoh esc
-    for(x,y;y;z){
+    for(x;y;z + 2){
       true
     }
     if (v) {

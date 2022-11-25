@@ -10,27 +10,6 @@ import validNumber
 # 3. Uner (sebelum sebuah variable ada operator uner (!))
 # 4. Operasi (diantara variable/angka/boolean ada operator aritmatik atau binary)
 
-
-matofword = [["none", "random", "halo"],  # kontrol
-             ["_assign_",  "_variable_", "_arith_", "_variable_"],
-             ["_variable_", "_assign_", "_variable_", "_arith_",
-                 "_variable_"],  # cek variable sendiri
-             ["naufal", "wadidaw", "random", "_variable_", "_compare_",
-                 "_compare_", "_variable_"],  # cek variable dan operator biasa
-             ["random", "_prefixOp_", "_variable_"],  # cek prefix
-             ["_premidOp_", "_variable_", "_premidOp_", "_variable_"],  # true
-             ["random", "_prepostOp_", "_variable_"],  # true
-             ["_variable_", "_prepostOp_", "random", "halo"],  # true
-             ["_notOp_", "_variable_"]]  # true
-
-line = [["if", "_curlyOpen_", "_variable_", "_compare_", "_number_", "_curlyClose_","_variable_", "_assign_", "_string_"  ],
-        ["none", "random", "_variable_", "_compare_", "true"],
-        ["_notOp_", "_variable_"]]
-
-tes = [["if", "_curlyOpen_", "_variable_", "_compare_", "_number_", "_curlyClose_","_variable_", "_assign_", "_string_"  ],
-       ["_notOp_", "_variable_"] ]
-
-
 def isOperator(word):
     return word == "_arith_" or word == "_compare_" or word == "_logic_" or word == "_bitwise_" or word == "_premidOp_"
 
@@ -193,9 +172,7 @@ def elimExpression(start, line):
             
     #print(line)
     for i in range(len(line)):  # cek kalo ada assignment
-        #print(i)
         if(line[i] == "_assign_" or line[i] == '_equalSign_'):
-            #print(" line yang ditinjau",line[i])
             assign = True
             break
 
@@ -220,29 +197,3 @@ def expressionCheck(matofword):
             elimExpression(idAwal, line)
     
     return matofword, valid, lineError
-
-# FOR DEBUGGING FROM FILE INPUT
-
-# dir = 'test/' + str('inputAcc.js')
-# file = open(dir, "r")
-# file = str(file.read())
-
-# arr_line = file.split('\n')
-
-# arrMain = ReadyToParse(file)
-
-# for row in arrMain:
-#     print(*row)
-
-# print()
-
-# result, valid, idLine = expressionCheck(arrMain)
-
-# for row in result:
-#     print(*row)
-
-res, valid, lineer = expressionCheck(line)
-
-#print(res)
-#print(valid)
-#print(lineer)
