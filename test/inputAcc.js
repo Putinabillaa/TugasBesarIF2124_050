@@ -4,6 +4,7 @@ function do_something(x) {
     /*
     Halo bang
     */
+    const y
     x = 'Hai'
     y = "no"
     if (x == 0) {

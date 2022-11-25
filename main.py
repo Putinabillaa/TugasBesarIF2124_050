@@ -180,16 +180,12 @@ if (globalVariable.acc):
 
 # Mulai proses parsing
 if (globalVariable.acc):
-    arr_file = ReadyToParse(file)
     arr_file_ready = []
     for i in range(0, len(arr_file)):
         arr_file_ready += arr_file[i] + ['_newline_']
-
-    print(arr_file_ready)
-
     globalVariable.acc = CYK.CYK(
         CNFconverter.CNFconverter("CFGDescription.txt"), arr_file_ready)
-    CNFconverter.writeCNF(CNFconverter.CNFconverter("CFGDescription.txt"))
+    #CNFconverter.writeCNF(CNFconverter.CNFconverter("CFGDescription.txt"))
     '''
     globalVariable.rowError = 0
     if (not(globalVariable.acc)):
