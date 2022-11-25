@@ -170,7 +170,7 @@ def validity(line):
 
 
 def elimExpression(start, line):
-    change = ["_arith_", "_compare_", "_logic_", "_bitwise_", "_premidOp_",
+    change = ["_arith_", "_compare_", "_logic_", "_bitwise_", "_premidOp_", "_string_",
               "_variable_", "_number_", "_prefixOp_", "_premidOp_", "_prepostOp_", "_notOp_"]
     assign = False
 
