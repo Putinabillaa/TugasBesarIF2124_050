@@ -10,7 +10,7 @@ Tugas Besar IF2124 Teori Bahasa Formal dan Otomata
 * [Status Pengerjaan](#status-pengerjaan)
 * [Screenshot program](#screenshot-program)
 * [Struktur Program](#struktur-program)
-* [Kontributor](#kontribtor)
+* [Kontributor](#kontributor)
 
 
 ## Penjelasan Ringkas Program
