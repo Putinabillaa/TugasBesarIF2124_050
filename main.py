@@ -24,7 +24,9 @@ def ReadyToParse(file):
     for line in file:
         if (globalVariable.acc):
             # Mengubah semicolon menjadi _semicolon
-            line = line.replace(';', ' _semicolon_')
+            line = line.replace(';', ' _semicolon_ ')
+            line = line.replace(':', ' _colon_ ')
+            line = line.replace(',', ' _comma_ ')
             # Mengubah multiline comments menjadi _comment_
             idxMultiOpen = line.find('/*')
             if (idxMultiOpen != -1 or found):
@@ -54,33 +56,33 @@ def ReadyToParse(file):
                 if (brackets == '('):
                     line = line.replace(brackets, ' _commonOpen_ ')
                 if (brackets == ')'):
-                    line = line.replace(brackets, ' _commonClose_')
+                    line = line.replace(brackets, ' _commonClose_ ')
                 if (brackets == '{'):
-                    line = line.replace(brackets, ' _curlyOpen_')
+                    line = line.replace(brackets, ' _curlyOpen_ ')
                 if (brackets == '}'):
-                    line = line.replace(brackets, ' _curlyClose_')
+                    line = line.replace(brackets, ' _curlyClose_ ')
                 if (brackets == '['):
-                    line = line.replace(brackets, ' _squareOpen_')
+                    line = line.replace(brackets, ' _squareOpen_ ')
                 if (brackets == ']'):
-                    line = line.replace(brackets, ' _squareClose_')
+                    line = line.replace(brackets, ' _squareClose_ ')
 
             # Mengubah keyword operator
             for operator in globalVariable.js_compareOp:
-                line = line.replace(operator, ' _compare_')
+                line = line.replace(operator, ' _compare_ ')
             for operator in globalVariable.js_assignLogicOp:
-                line = line.replace(operator, ' _assign_')
+                line = line.replace(operator, ' _assign_ ')
             for operator in globalVariable.js_logicOp:
-                line = line.replace(operator, ' _logic_')
+                line = line.replace(operator, ' _logic_ ')
             for operator in globalVariable.js_assignBitwiseOp:
-                line = line.replace(operator, ' _assign_')
+                line = line.replace(operator, ' _assign_ ')
             for operator in globalVariable.js_bitwiseOp:
-                line = line.replace(operator, ' _bitwise_')
+                line = line.replace(operator, ' _bitwise_ ')
             for operator in globalVariable.js_assignArithOp:
-                line = line.replace(operator, ' _assign_')
+                line = line.replace(operator, ' _assign_ ')
             for operator in globalVariable.js_arithOp:
-                line = line.replace(operator, ' _arith_')
+                line = line.replace(operator, ' _arith_ ')
             for operator in globalVariable.js_assignDeclare:
-                line = line.replace(operator, ' _equalSign_')
+                line = line.replace(operator, ' _equalSign_ ')
 
             # Mengubah tipe data
             # Mengubah keyword number menjadi '_string_'
@@ -122,7 +124,7 @@ def ReadyToParse(file):
                     globalVariable.acc = False
                 else:
                     line = line.replace(
-                        line[idxStringOpen:idxStringClose+1], ' _string_')
+                        line[idxStringOpen:idxStringClose+1], ' _string_ ')
             else:  # idxstringOpen == -1
                 idxStringClose = line.find("'")
                 if (idxStringClose != -1):
@@ -166,14 +168,11 @@ def ReadyToParse(file):
                     globalVariable.acc = False
                 else:
                     line = line.replace(
-                        line[idxStringOpen:idxStringClose+1], ' _string_')
+                        line[idxStringOpen:idxStringClose+1], ' _string_ ')
             else:  # idxstringOpen == -1
                 idxStringClose = line.find('"')
                 if (idxStringClose != -1):
                     globalVariable.acc = False
-
-            # Mengubah keyword object menjadi '_object_'
-            # ''' BELOM NIH '''
 
             # Mengubah isi file menjadi array of array of word
             if (line != ''):
@@ -186,7 +185,7 @@ def ReadyToParse(file):
             if (globalVariable.acc):
                 line = validVariable.isVariable(
                     line, globalVariable.replacedsymbol, globalVariable.js_grammar)
-
+            arr.append(line)
             globalVariable.rowError += 1
     return arr
 
@@ -226,12 +225,11 @@ slowprint("...")
 print("\033[00m")
 
 arrMain = ReadyToParse(file)
-
+arr_file = []
 # Cek Expression
 if (globalVariable.acc):
     arr_file, globalVariable.acc, globalVariable.rowError = expressionCheck.expressionCheck(
         arrMain)
-
 # DEBUG PRINT MATRIX arr_file
 
 # for row in arr_file:
@@ -253,7 +251,6 @@ if (globalVariable.acc):
         print("\033[1;92mAccepted\n\033[1;00m")
 
     else:
-        error = arr_line[globalVariable.rowError-1]
         print("\033[1;91mSyntax Error!!\033[1;00m")
 
 else:
