@@ -85,94 +85,96 @@ def ReadyToParse(file):
                 line = line.replace(operator, ' _equalSign_ ')
 
             # Mengubah tipe data
-            # Mengubah keyword number menjadi '_string_'
-            idxStringOpen = line.find("'")
-            if (idxStringOpen != -1):
-                # print("before1")
-                # print(line)
-                # Mengatasi escaped character
-                if (line.find(chr(92)+chr(39), idxStringOpen+1) != -1):
-                    line = line.replace(chr(92)+chr(39), '0esc')
+            while(line.find("'") != -1):
+                # Mengubah keyword number menjadi '_string_'
+                idxStringOpen = line.find("'")
+                if (idxStringOpen != -1):
+                    # print("before1")
+                    # print(line)
+                    # Mengatasi escaped character
+                    if (line.find(chr(92)+chr(39), idxStringOpen+1) != -1):
+                        line = line.replace(chr(92)+chr(39), '0esc')
 
-                idxStringClose = line.find("'", idxStringOpen+1)
-                if (idxStringClose == -1):
-                    globalVariable.acc = False
-                else:
-                    idxEscOpen = line.find(
-                        chr(92), idxStringOpen+1, idxStringClose-1)
-                    while(idxEscOpen != -1):
-                        idxEscClose = line.find(
-                            chr(34), idxEscOpen+1, idxStringClose-1)
-                        if (idxEscClose == -1):
-                            idxEscClose = line.find(
-                                chr(39), idxEscOpen+1, idxStringClose-1)
-
-                        if(idxEscClose == -1):
-                            line = line.replace(line[idxEscOpen], '0esc')
-                        else:
-                            line = line.replace(
-                                line[idxEscOpen:idxEscClose+1], '0esc')
-
+                    idxStringClose = line.find("'", idxStringOpen+1)
+                    if (idxStringClose == -1):
+                        globalVariable.acc = False
+                    else:
                         idxEscOpen = line.find(
                             chr(92), idxStringOpen+1, idxStringClose-1)
-
-                # print("after1")
-                # print(line)
-
-                idxStringClose = line.find("'", idxStringOpen+1)
-                if (idxStringClose == -1):
-                    globalVariable.acc = False
-                else:
-                    line = line.replace(
-                        line[idxStringOpen:idxStringClose+1], ' _string_ ')
-            else:  # idxstringOpen == -1
-                idxStringClose = line.find("'")
-                if (idxStringClose != -1):
-                    globalVariable.acc = False
-
-            idxStringOpen = line.find('"')
-            if (idxStringOpen != -1):
-
-                # print("before2")
-                # print(line)
-
-                if (line.find(chr(92)+chr(34), idxStringOpen+1) != -1):
-                    line = line.replace(chr(92)+chr(34), '0esc')
-
-                idxStringClose = line.find('"', idxStringOpen+1)
-                if (idxStringClose == -1):
-                    globalVariable.acc = False
-                else:
-                    idxEscOpen = line.find(
-                        chr(92), idxStringOpen+1, idxStringClose-1)
-                    while(idxEscOpen != -1):
-                        idxEscClose = line.find(
-                            chr(39), idxEscOpen+1, idxStringClose-1)
-                        if (idxEscClose == -1):
+                        while(idxEscOpen != -1):
                             idxEscClose = line.find(
                                 chr(34), idxEscOpen+1, idxStringClose-1)
-                        if(idxEscClose == -1):
-                            line = line.replace(line[idxEscOpen], '0esc')
-                        else:
-                            line = line.replace(
-                                line[idxEscOpen:idxEscClose+1], '0esc')
+                            if (idxEscClose == -1):
+                                idxEscClose = line.find(
+                                    chr(39), idxEscOpen+1, idxStringClose-1)
 
+                            if(idxEscClose == -1):
+                                line = line.replace(line[idxEscOpen], '0esc')
+                            else:
+                                line = line.replace(
+                                    line[idxEscOpen:idxEscClose+1], '0esc')
+
+                            idxEscOpen = line.find(
+                                chr(92), idxStringOpen+1, idxStringClose-1)
+
+                    # print("after1")
+                    # print(line)
+
+                    idxStringClose = line.find("'", idxStringOpen+1)
+                    if (idxStringClose == -1):
+                        globalVariable.acc = False
+                    else:
+                        line = line.replace(
+                            line[idxStringOpen:idxStringClose+1], ' _string_ ')
+                else:  # idxstringOpen == -1
+                    idxStringClose = line.find("'")
+                    if (idxStringClose != -1):
+                        globalVariable.acc = False
+
+            while(line.find('"') != -1):
+                idxStringOpen = line.find('"')
+                if (idxStringOpen != -1):
+
+                    # print("before2")
+                    # print(line)
+
+                    if (line.find(chr(92)+chr(34), idxStringOpen+1) != -1):
+                        line = line.replace(chr(92)+chr(34), '0esc')
+
+                    idxStringClose = line.find('"', idxStringOpen+1)
+                    if (idxStringClose == -1):
+                        globalVariable.acc = False
+                    else:
                         idxEscOpen = line.find(
                             chr(92), idxStringOpen+1, idxStringClose-1)
+                        while(idxEscOpen != -1):
+                            idxEscClose = line.find(
+                                chr(39), idxEscOpen+1, idxStringClose-1)
+                            if (idxEscClose == -1):
+                                idxEscClose = line.find(
+                                    chr(34), idxEscOpen+1, idxStringClose-1)
+                            if(idxEscClose == -1):
+                                line = line.replace(line[idxEscOpen], '0esc')
+                            else:
+                                line = line.replace(
+                                    line[idxEscOpen:idxEscClose+1], '0esc')
 
-                # print("after2")
-                # print(line)
+                            idxEscOpen = line.find(
+                                chr(92), idxStringOpen+1, idxStringClose-1)
 
-                idxStringClose = line.find('"', idxStringOpen+1)
-                if (idxStringClose == -1):
-                    globalVariable.acc = False
-                else:
-                    line = line.replace(
-                        line[idxStringOpen:idxStringClose+1], ' _string_ ')
-            else:  # idxstringOpen == -1
-                idxStringClose = line.find('"')
-                if (idxStringClose != -1):
-                    globalVariable.acc = False
+                    # print("after2")
+                    # print(line)
+
+                    idxStringClose = line.find('"', idxStringOpen+1)
+                    if (idxStringClose == -1):
+                        globalVariable.acc = False
+                    else:
+                        line = line.replace(
+                            line[idxStringOpen:idxStringClose+1], ' _string_ ')
+                else:  # idxstringOpen == -1
+                    idxStringClose = line.find('"')
+                    if (idxStringClose != -1):
+                        globalVariable.acc = False
 
             # Mengubah isi file menjadi array of array of word
             if (line != ''):
@@ -225,8 +227,10 @@ slowprint("...")
 print("\033[00m")
 
 arrMain = ReadyToParse(file)
-print(arrMain)
+for i in range(0, len(arrMain)):
+    print(arrMain[i])
 arr_file = []
+
 # Cek Expression
 if (globalVariable.acc):
     arr_file, globalVariable.acc, globalVariable.rowError = expressionCheck.expressionCheck(
