@@ -197,7 +197,6 @@ if (globalVariable.acc):
 
 for i in range(0, len(arr_file)):
     print(arr_file[i])
-arr_file = []
 
 # DEBUG PRINT MATRIX arr_file
 
@@ -211,6 +210,14 @@ if (globalVariable.acc):
     arr_file_ready = []
     for i in range(0, len(arr_file)):
         arr_file_ready += arr_file[i] + ['_newline_']
+    print()
+    print(arr_file_ready)
+
+    # Hapus comment sebelum parsing
+    print()
+    arr_file_ready.remove('_comment_')
+    print(arr_file_ready)
+
     globalVariable.acc = CYK.CYK(
         CNFconverter.CNFconverter("CFGDescription.txt"), arr_file_ready)
     # CNFconverter.writeCNF(CNFconverter.CNFconverter("CFGDescription.txt"))
@@ -218,9 +225,10 @@ if (globalVariable.acc):
     # Output program
     if (globalVariable.acc):
         print("\n\033[1;92mAccepted\n\033[1;00m")
-
+        print()
     else:
         print("\n\033[1;91mSyntax Error!!\033[1;00m")
+        print()
 
 else:
     error = arr_line[globalVariable.rowError-1]
