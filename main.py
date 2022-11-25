@@ -215,7 +215,8 @@ if (globalVariable.acc):
 
     # Hapus comment sebelum parsing
     print()
-    arr_file_ready.remove('_comment_')
+    while ('_comment_' in arr_file_ready):
+        arr_file_ready.remove('_comment_')
     print(arr_file_ready)
 
     globalVariable.acc = CYK.CYK(
