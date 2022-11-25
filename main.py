@@ -151,7 +151,7 @@ print()
 print()
 
 # Membuka file Node.js
-fileName = sys.argv[1]
+fileName = sys.argv[1] # argumen yang diambil dari cl 
 dir = 'test/' + str(fileName)
 file = open(dir, "r")
 file = str(file.read())
@@ -165,10 +165,18 @@ slowprint("...")
 print("\033[00m")
 
 arrMain = ReadyToParse(file)
+
 # Cek Expression
 if (globalVariable.acc):
     arr_file, globalVariable.acc, globalVariable.rowError = expressionCheck.expressionCheck(
         arrMain)
+    
+# DEBUG PRINT MATRIX arr_file
+
+# for row in arr_file:
+#     print(*row)
+
+# sys.exit("pause")
 
 # Mulai proses parsing
 if (globalVariable.acc):
