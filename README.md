@@ -42,7 +42,7 @@ BNMO
 * Seluruh fitur selesai dikerjakan. 
 
 ## Screenshot Program
-![Javascript Parser Program](./program.pnd)
+![Javascript Parser Program](./program.png)
 
 ## Struktur Program
 ```bash
