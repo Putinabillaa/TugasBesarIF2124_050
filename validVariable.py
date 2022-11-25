@@ -37,19 +37,9 @@ def variableCheck(word):
 
 def isVariable(list_word, replacedsymbol, js_grammar):
     list_word_done = []
-    declare = False
     for word in list_word:
         if (globalVariable.acc):
-            # Using var, let, or const
-            if (declare):
-                if (variableCheck(word)):
-                    list_word_done.append('_variable_')
-                else:
-                    globalVariable.acc = False
-                declare = False
-            elif (word == 'var' or word == 'let' or word == 'const'):
-                declare = True
-            elif ((word in replacedsymbol) or (word in js_grammar)):
+            if ((word in replacedsymbol) or (word in js_grammar)):
                 list_word_done.append(word)
             else:
                 if (variableCheck(word)):

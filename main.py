@@ -79,13 +79,44 @@ def ReadyToParse(file):
                 line = line.replace(operator, ' _assign_')
             for operator in globalVariable.js_arithOp:
                 line = line.replace(operator, ' _arith_')
-            for operator in globalVariable.js_assignDeclare :
+            for operator in globalVariable.js_assignDeclare:
                 line = line.replace(operator, ' _equalSign_')
 
             # Mengubah tipe data
             # Mengubah keyword number menjadi '_string_'
             idxStringOpen = line.find("'")
             if (idxStringOpen != -1):
+                # print("before1")
+                # print(line)
+                # Mengatasi escaped character
+                if (line.find(chr(92)+chr(39), idxStringOpen+1) != -1):
+                    line = line.replace(chr(92)+chr(39), '0esc')
+
+                idxStringClose = line.find("'", idxStringOpen+1)
+                if (idxStringClose == -1):
+                    globalVariable.acc = False
+                else:
+                    idxEscOpen = line.find(
+                        chr(92), idxStringOpen+1, idxStringClose-1)
+                    while(idxEscOpen != -1):
+                        idxEscClose = line.find(
+                            chr(34), idxEscOpen+1, idxStringClose-1)
+                        if (idxEscClose == -1):
+                            idxEscClose = line.find(
+                                chr(39), idxEscOpen+1, idxStringClose-1)
+
+                        if(idxEscClose == -1):
+                            line = line.replace(line[idxEscOpen], '0esc')
+                        else:
+                            line = line.replace(
+                                line[idxEscOpen:idxEscClose+1], '0esc')
+
+                        idxEscOpen = line.find(
+                            chr(92), idxStringOpen+1, idxStringClose-1)
+
+                # print("after1")
+                # print(line)
+
                 idxStringClose = line.find("'", idxStringOpen+1)
                 if (idxStringClose == -1):
                     globalVariable.acc = False
@@ -99,6 +130,37 @@ def ReadyToParse(file):
 
             idxStringOpen = line.find('"')
             if (idxStringOpen != -1):
+
+                # print("before2")
+                # print(line)
+
+                if (line.find(chr(92)+chr(34), idxStringOpen+1) != -1):
+                    line = line.replace(chr(92)+chr(34), '0esc')
+
+                idxStringClose = line.find('"', idxStringOpen+1)
+                if (idxStringClose == -1):
+                    globalVariable.acc = False
+                else:
+                    idxEscOpen = line.find(
+                        chr(92), idxStringOpen+1, idxStringClose-1)
+                    while(idxEscOpen != -1):
+                        idxEscClose = line.find(
+                            chr(39), idxEscOpen+1, idxStringClose-1)
+                        if (idxEscClose == -1):
+                            idxEscClose = line.find(
+                                chr(34), idxEscOpen+1, idxStringClose-1)
+                        if(idxEscClose == -1):
+                            line = line.replace(line[idxEscOpen], '0esc')
+                        else:
+                            line = line.replace(
+                                line[idxEscOpen:idxEscClose+1], '0esc')
+
+                        idxEscOpen = line.find(
+                            chr(92), idxStringOpen+1, idxStringClose-1)
+
+                # print("after2")
+                # print(line)
+
                 idxStringClose = line.find('"', idxStringOpen+1)
                 if (idxStringClose == -1):
                     globalVariable.acc = False
@@ -125,7 +187,6 @@ def ReadyToParse(file):
                 line = validVariable.isVariable(
                     line, globalVariable.replacedsymbol, globalVariable.js_grammar)
 
-            arr.append(line)
             globalVariable.rowError += 1
     return arr
 
@@ -151,7 +212,7 @@ print()
 print()
 
 # Membuka file Node.js
-fileName = sys.argv[1] # argumen yang diambil dari cl 
+fileName = sys.argv[1]  # argumen yang diambil dari cl
 dir = 'test/' + str(fileName)
 file = open(dir, "r")
 file = str(file.read())
@@ -170,7 +231,7 @@ arrMain = ReadyToParse(file)
 if (globalVariable.acc):
     arr_file, globalVariable.acc, globalVariable.rowError = expressionCheck.expressionCheck(
         arrMain)
-    
+
 # DEBUG PRINT MATRIX arr_file
 
 # for row in arr_file:
@@ -180,16 +241,27 @@ if (globalVariable.acc):
 
 # Mulai proses parsing
 if (globalVariable.acc):
-    arr_file = ReadyToParse(file)
     arr_file_ready = []
     for i in range(0, len(arr_file)):
         arr_file_ready += arr_file[i] + ['_newline_']
-
-    print(arr_file_ready)
-
     globalVariable.acc = CYK.CYK(
         CNFconverter.CNFconverter("CFGDescription.txt"), arr_file_ready)
-    CNFconverter.writeCNF(CNFconverter.CNFconverter("CFGDescription.txt"))
+    # CNFconverter.writeCNF(CNFconverter.CNFconverter("CFGDescription.txt"))
+
+    # Output program
+    if (globalVariable.acc):
+        print("\033[1;92mAccepted\n\033[1;00m")
+
+    else:
+        error = arr_line[globalVariable.rowError-1]
+        print("\033[1;91mSyntax Error!!\033[1;00m")
+
+else:
+    error = arr_line[globalVariable.rowError-1]
+    print("\033[1;91mSyntax Error!!")
+    print("Terjadi kesalahan pada line " +
+          str(globalVariable.rowError) + ' :"' + error + '"')
+    print("\033[1;00m")
     '''
     globalVariable.rowError = 0
     if (not(globalVariable.acc)):
@@ -199,14 +271,3 @@ if (globalVariable.acc):
             elif (word == '_newline_'):
                 globalVariable.rowError += 1
     '''
-# Output program
-if (globalVariable.acc):
-    print("\033[1;92mAccepted\n\033[1;00m")
-'''
-else:
-    error = arr_line[globalVariable.rowError-1]
-    print("\033[1;91mSyntax Error!!")
-    print("Terjadi kesalahan pada line " +
-          str(globalVariable.rowError) + ' :"' + error + '"')
-    print("\033[1;00m")
-'''
