@@ -3,9 +3,10 @@ function do_something(x) {
     // This is a sample comment
     x = 5 /*
     Halo bang
-    */ y = "Haig\'ais"
-    x = 'Hai\"bang' // Ini contoh esc
+    */ 
     y = "Haig\'ais"
+    x = 'Hai\"bang' 
+    y = "Haig\'ais" // Ini contoh esc
     for(x,y;y;z){
       true
     }
@@ -19,6 +20,7 @@ function do_something(x) {
         y = "ak\"u"
         return 2
       }
+
     } 
     else if (x == 32) {
       return 4
