@@ -18,6 +18,7 @@ Menurut Kamus Besar Bahasa Indonesia, parser adalah alat untuk mendeteksi kesala
 
 ## Pre-Requisite Program
 1. Pastikan pada device sudah terinstall library sys
+2. Pastikan pada device sudah terinstall library time
 
 ## Cara Menjalankan Program
 1. Pastikan sudah melakukan kompilasi program
