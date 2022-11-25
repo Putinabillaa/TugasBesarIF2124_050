@@ -14,6 +14,6 @@ def CYK(grammar, arrofword):
                             if(len(prod) != 1):
                                 if((prod[0] in CYKtable[j][k]) and (prod[1] in CYKtable[k + 1][i + j]) 
                                     and (nonterm not in CYKtable[j][i + j])): CYKtable[j][i + j].append(nonterm)  
-        if('START' in CYKtable[0][0]): return True
+        if('START' in CYKtable[0][len(arrofword) - 1]): return True
         else : return False
     else: return True
