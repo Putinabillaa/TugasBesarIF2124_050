@@ -4,8 +4,8 @@ function do_something(x) {
     /*
     Halo bang
     */
-    let x = 'Hai'
-    y = "no"
+    let x = 'Ha\'i'
+    y = "n\ 'o"
     if (x == 0) {
       return 0
     } else if (x + 4 == 1) {
