@@ -10,6 +10,7 @@ Tugas Besar IF2124 Teori Bahasa Formal dan Otomata
 * [Status Pengerjaan](#status-pengerjaan)
 * [Screenshot program](#screenshot-program)
 * [Struktur Program](#struktur-program)
+* [Kontributor](#kontribtor)
 
 
 ## Penjelasan Ringkas Program
@@ -66,7 +67,13 @@ BNMO
     ├───CYK.py
     └───README.md
 ```
+## Kontributor
+1. Naufal Syifa Firdaus     13521050
+2. Husnia Munzayana         13521077
+3. Puti Nabilla Aidira      13521088
 
+
+----------------------------------------------------------------------------------------------------------
 # TugasBesarIF2124_050
 ## Tugas Besar IF2124 Teori Bahasa Formal dan Otomata Parser Bahasa JavaScript (Node.js)
 
